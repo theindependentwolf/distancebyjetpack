@@ -64,7 +64,11 @@ var getDistance = function(p1, p2) {
     Math.sin(dLong / 2) * Math.sin(dLong / 2);
   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   var d = R * c;
-  return Math.round(d/1000); //Distance in km
+  if(distanceUnit == 'km'){
+    return Math.round(d/1000);
+  }else{
+    return Math.round(d/1000 * 0.621371);
+  }
 };
 
 
@@ -77,4 +81,15 @@ function getCoordsForDisplay(coords){
   var lat = roundToTwoDecimal(coords.lat());
   var long = roundToTwoDecimal(coords.lng());
   return "[" + lat + ", " + long + "]";
+}
+
+
+function setDUnit(){  
+  if(document.getElementById('km').checked){
+    distanceUnit = 'km';
+  }else{
+     distanceUnit = 'miles';
+  }
+  document.getElementById("dunitSpan").innerHTML = distanceUnit;
+  update();
 }

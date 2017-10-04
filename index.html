@@ -9,11 +9,11 @@
     <div id="floating-panel">
       <h1>Distance by Jetpack</h1>
       <table>
-        <tr><td style="width:40%"></td><td style="width:50%"></td><td style="width:10%"></td></tr>
-        <tr><td align="right">Distance Unit:</td><td><input type="radio" name="gender" value="male">km&nbsp;<input type="radio" name="gender" value="male">miles</td></tr>
+        <tr><td style="width:40%"></td><td style="width:40%"></td><td style="width:20%"></td></tr>
+        <tr><td align="right">Distance Unit:</td><td><input onclick="setDUnit();" type="radio" name="dunit" value="km" id="km" checked>km&nbsp;<input onclick="setDUnit();" type="radio" name="dunit" value="miles" id="miles">miles</td></tr>
         <tr><td align="right">Origin:</td><td><input type="text" readonly id="origin"></td></tr>
         <tr><td align="right">Destination:</td><td><input type="text" readonly id="destination"></td></tr>
-        <tr><td align="right">Distance by Jetpack:</td><td><input type="text" readonly id="distance"></td><td>km</td></tr>
+        <tr><td align="right">Distance by Jetpack:</td><td><input type="text" readonly id="distance"></td><td><span id="dunitSpan">km</td></tr>
       </table>
     </div>
     <script src="js/maps.js"></script>
