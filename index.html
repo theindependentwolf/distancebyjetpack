@@ -6,7 +6,7 @@
   </head>
   <body  ondragover="drag_over(event)" ondrop="drop(event)">
     <div id="map"></div>
-    <div id="floating-panel"  draggable="true" ondragstart="drag_start(event)">
+    <div id="floating-panel" draggable="true" ondragstart="drag_start(event)">
       <div class="center">
         <h1>Distance by Jetpack</h1>
         <p style="color:#800000;">Drag the markers around to calculate distance<br> between desired points.</p>
@@ -15,15 +15,24 @@
         <tr><td style="width:40%" ></td><td style="width:45%"></td><td style="width:15%"></td></tr>
         <tr><td align="right" class="mright">Distance Unit:</td><td><input onclick="setDUnit();" type="radio" name="dunit" value="km" id="km" checked>km&nbsp;<input onclick="setDUnit();" type="radio" name="dunit" value="miles" id="miles">miles</td><td></td></tr>
         <tr><td align="right" class="mright">Origin:</td><td><input type="text" readonly id="origin"></td><td></td></tr>
+        <tr><td align="right" class="mright"></td><td><input placeholder="Search Origin" type="text" id="originSearch"></td><td></td></tr>
         <tr><td align="right" class="mright">Destination:</td><td><input type="text" readonly id="destination"></td><td></td></tr>
+        <tr><td align="right" class="mright"></td><td><input placeholder="Search Destination" type="text" id="destinationSearch"></td><td></td></tr>
         <tr><td align="right" class="mright">Heading Angle:</td><td><input type="text" readonly id="heading"></td><td></td></tr>
         <tr><td align="right" class="mright">Distance by Jetpack:</td><td><input type="text" readonly id="distance"></td><td><span id="dunitSpan">km</td></tr>
         <tr><td align="right" class="mright">Actual Path:</td><td><hr id="curvedLine"></td><td></td></tr>
         <tr><td align="right" class="mright">For Flat Earthers:</td><td><hr id="flatLine"></td><td></td></tr>
       </table>
     </div>
+
+    <div id="infowindow-content">
+      <img src="" width="16" height="16" id="place-icon">
+      <span id="place-name"  class="title"></span><br>
+      <span id="place-address"></span>
+    </div>
+    
     <script src="js/maps.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCabihsufV8atKmG94kViTgWs05m6lQyXs&callback=initMap&libraries=geometry">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCabihsufV8atKmG94kViTgWs05m6lQyXs&callback=initMap&libraries=geometry,places">
     </script>
   </body>
 </html>
