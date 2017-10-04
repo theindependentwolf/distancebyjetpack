@@ -7,17 +7,27 @@
   <body>
     <div id="map"></div>
     <div id="floating-panel">
-      <h1>Distance by Jetpack</h1>
+      <div class="center">
+        <h1>Distance by Jetpack</h1>
+        <p style="color:#800000;">Drag the markers around to calculate distance<br> between desired points.</p>
+      </div>
       <table>
-        <tr><td style="width:40%"></td><td style="width:40%"></td><td style="width:20%"></td></tr>
-        <tr><td align="right">Distance Unit:</td><td><input onclick="setDUnit();" type="radio" name="dunit" value="km" id="km" checked>km&nbsp;<input onclick="setDUnit();" type="radio" name="dunit" value="miles" id="miles">miles</td></tr>
-        <tr><td align="right">Origin:</td><td><input type="text" readonly id="origin"></td></tr>
-        <tr><td align="right">Destination:</td><td><input type="text" readonly id="destination"></td></tr>
-        <tr><td align="right">Distance by Jetpack:</td><td><input type="text" readonly id="distance"></td><td><span id="dunitSpan">km</td></tr>
+        <tr><td style="width:40%" ></td><td style="width:45%"></td><td style="width:15%"></td></tr>
+        <tr><td align="right" class="mright">Distance Unit:</td><td><input onclick="setDUnit();" type="radio" name="dunit" value="km" id="km" checked>km&nbsp;<input onclick="setDUnit();" type="radio" name="dunit" value="miles" id="miles">miles</td><td></td></tr>
+        <tr><td align="right" class="mright">Origin:</td><td><input type="text" readonly id="origin"></td><td></td></tr>
+        <tr><td align="right" class="mright">Destination:</td><td><input type="text" readonly id="destination"></td><td></td></tr>
+        <tr><td align="right" class="mright">Heading Angle:</td><td><input type="text" readonly id="heading"></td><td></td></tr>
+        <tr><td align="right" class="mright">Distance by Jetpack:</td><td><input type="text" readonly id="distance"></td><td><span id="dunitSpan">km</td></tr>
+        <tr><td align="right" class="mright">Actual Path:</td><td><hr id="curvedLine"></td><td></td></tr>
+        <tr><td align="right" class="mright">For Flat Earthers:</td><td><hr id="flatLine"></td><td></td></tr>
       </table>
     </div>
     <script src="js/maps.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCabihsufV8atKmG94kViTgWs05m6lQyXs&callback=initMap">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCabihsufV8atKmG94kViTgWs05m6lQyXs&callback=initMap&libraries=geometry">
     </script>
   </body>
 </html>
+
+
+
+

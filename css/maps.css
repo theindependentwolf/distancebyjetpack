@@ -13,10 +13,38 @@ html, body {
 #floating-panel {
   position: absolute;
   top:50px;
-  background-color: #fff;
+  left:10px;
+  background-color: #C0C0C0;
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 15px;
   border-color: black;
-  border-width: 1px;
+  border-width: 2px;
+  border-style: solid;
   margin: 0 auto;
+}
+
+
+#curvedLine{
+  border-color:#CC0099;
+  background-color:#CC0099;
+}
+
+#flatLine{
+  border-color:#800000;
+  background-color:#800000;
+}
+
+hr{
+  height: 5px;
+  width:50px;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.center{
+  text-align: center;
+}
+
+.mright{
+  padding-right: 5px;
 }

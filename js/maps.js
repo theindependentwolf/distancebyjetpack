@@ -14,7 +14,7 @@ function initMap() {
   marker1 = new google.maps.Marker({
     map: map,
     draggable: true,
-    position: {lat: 45.857, lng: -122.352}
+    position: {lat: 37.75, lng: -122.48}
   });
 
   marker2 = new google.maps.Marker({
@@ -37,14 +37,25 @@ function initMap() {
     map: map,
   });
 
+  geodesicPoly = new google.maps.Polyline({
+    strokeColor: '#CC0099',
+    strokeOpacity: 1.0,
+    strokeWeight: 3,
+    geodesic: true,
+    map: map
+  });
+
   update();
 }
 
 function update() {
   var path = [marker1.getPosition(), marker2.getPosition()];
   poly.setPath(path);
+  geodesicPoly.setPath(path);
+  var heading = google.maps.geometry.spherical.computeHeading(path[0], path[1]);
   document.getElementById('origin').value = getCoordsForDisplay(path[0]);
   document.getElementById('destination').value = getCoordsForDisplay(path[1]);
+  document.getElementById('heading').value = heading;
   document.getElementById('distance').value = getDistance(marker1.getPosition(), marker2.getPosition());
 }
 
