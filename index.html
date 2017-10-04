@@ -4,9 +4,9 @@
     <title>Distance by Jetpack</title>
     <link rel="stylesheet" href="css/maps.css"/>
   </head>
-  <body>
+  <body  ondragover="drag_over(event)" ondrop="drop(event)">
     <div id="map"></div>
-    <div id="floating-panel">
+    <div id="floating-panel"  draggable="true" ondragstart="drag_start(event)">
       <div class="center">
         <h1>Distance by Jetpack</h1>
         <p style="color:#800000;">Drag the markers around to calculate distance<br> between desired points.</p>
