@@ -5,7 +5,7 @@ var poly, geodesicPoly;
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 4,
-    center: {lat: 37.769, lng: -122.446}
+    center: {lat: 38.08, lng: -99.42}
   });
 
   map.controls[google.maps.ControlPosition.TOP_CENTER].push(
@@ -14,7 +14,7 @@ function initMap() {
   marker1 = new google.maps.Marker({
     map: map,
     draggable: true,
-    position: {lat: 37.75, lng: -122.48}
+    position: {lat: 32.78, lng: -117.19}
   });
 
   marker2 = new google.maps.Marker({
@@ -46,6 +46,73 @@ function initMap() {
   });
 
   update();
+
+  var inputSource = document.getElementById('originSearch');
+  var inputDestination = document.getElementById('destinationSearch');
+  var autocompleteSource = new google.maps.places.Autocomplete(inputSource);
+  var autocompleteDestination = new google.maps.places.Autocomplete(inputDestination);
+
+  autocompleteSource.addListener('place_changed', function() {
+    var place = autocompleteSource.getPlace();
+    if (!place.geometry) {
+      // User entered the name of a Place that was not suggested and
+      // pressed the Enter key, or the Place Details request failed.
+      window.alert("No details available for input: '" + place.name + "'");
+      return;
+    }
+
+    // If the place has a geometry, then present it on a map.
+    if (place.geometry.viewport) {
+      map.fitBounds(place.geometry.viewport);
+    } else {
+      map.setCenter(place.geometry.location);
+      map.setZoom(4); 
+    }
+    marker1.setPosition(place.geometry.location);
+    document.getElementById('originSearch').value = '';
+
+    var address = '';
+    if (place.address_components) {
+      address = [
+        (place.address_components[0] && place.address_components[0].short_name || ''),
+        (place.address_components[1] && place.address_components[1].short_name || ''),
+        (place.address_components[2] && place.address_components[2].short_name || '')
+      ].join(' ');
+    }
+  });
+
+
+  autocompleteDestination.addListener('place_changed', function() {
+    var place = autocompleteDestination.getPlace();
+    if (!place.geometry) {
+      // User entered the name of a Place that was not suggested and
+      // pressed the Enter key, or the Place Details request failed.
+      window.alert("No details available for input: '" + place.name + "'");
+      return;
+    }
+
+    // If the place has a geometry, then present it on a map.
+    if (place.geometry.viewport) {
+      map.fitBounds(place.geometry.viewport);
+    } else {
+      map.setCenter(place.geometry.location);
+      map.setZoom(4); 
+    }
+    marker2.setPosition(place.geometry.location);
+    document.getElementById('destinationSearch').value = '';
+
+    var address = '';
+    if (place.address_components) {
+      address = [
+        (place.address_components[0] && place.address_components[0].short_name || ''),
+        (place.address_components[1] && place.address_components[1].short_name || ''),
+        (place.address_components[2] && place.address_components[2].short_name || '')
+      ].join(' ');
+    }
+  });
+
+
+
 }
 
 function update() {
@@ -53,10 +120,10 @@ function update() {
   poly.setPath(path);
   geodesicPoly.setPath(path);
   var heading = google.maps.geometry.spherical.computeHeading(path[0], path[1]);
-  document.getElementById('origin').value = getCoordsForDisplay(path[0]);
-  document.getElementById('destination').value = getCoordsForDisplay(path[1]);
-  document.getElementById('heading').value = heading;
-  document.getElementById('distance').value = getDistance(marker1.getPosition(), marker2.getPosition());
+  document.getElementById('origin').innerText = getCoordsForDisplay(path[0]);
+  document.getElementById('destination').innerText = getCoordsForDisplay(path[1]);
+  document.getElementById('heading').innerText = heading;
+  document.getElementById('distance').innerText = getDistance(marker1.getPosition(), marker2.getPosition());
 }
 
 //Haversine Formula to calculate distance between two pairs of co-ordinates
@@ -256,11 +323,11 @@ function drag_over(event)
 //       </div>
 //     </div>
 //     <div id="map"></div>
-    // <div id="infowindow-content">
-    //   <img src="" width="16" height="16" id="place-icon">
-    //   <span id="place-name"  class="title"></span><br>
-    //   <span id="place-address"></span>
-    // </div>
+//     <div id="infowindow-content">
+//       <img src="" width="16" height="16" id="place-icon">
+//       <span id="place-name"  class="title"></span><br>
+//       <span id="place-address"></span>
+//     </div>
 
 //     <script>
 //       // This example requires the Places library. Include the libraries=places
@@ -268,56 +335,90 @@ function drag_over(event)
 //       // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 
 //       function initMap() {
+//         var map = new google.maps.Map(document.getElementById('map'), {
+//           center: {lat: -33.8688, lng: 151.2195},
+//           zoom: 13
+//         });
+//         var card = document.getElementById('pac-card');
+//         var input = document.getElementById('pac-input');
+//         var types = document.getElementById('type-selector');
+//         var strictBounds = document.getElementById('strict-bounds-selector');
 
+//         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(card);
 
+//         var autocomplete = new google.maps.places.Autocomplete(input);
 
+//         // Bind the map's bounds (viewport) property to the autocomplete object,
+//         // so that the autocomplete requests use the current map bounds for the
+//         // bounds option in the request.
+//         autocomplete.bindTo('bounds', map);
 
+//         var infowindow = new google.maps.InfoWindow();
+//         var infowindowContent = document.getElementById('infowindow-content');
+//         infowindow.setContent(infowindowContent);
+//         var marker = new google.maps.Marker({
+//           map: map,
+//           anchorPoint: new google.maps.Point(0, -29)
+//         });
 
-        
-        // var sourceInput = document.getElementById('originSearch');
-        // var autocomplete = new google.maps.places.Autocomplete(sourceInput);
+//         autocomplete.addListener('place_changed', function() {
+//           infowindow.close();
+//           marker.setVisible(false);
+//           var place = autocomplete.getPlace();
+//           if (!place.geometry) {
+//             // User entered the name of a Place that was not suggested and
+//             // pressed the Enter key, or the Place Details request failed.
+//             window.alert("No details available for input: '" + place.name + "'");
+//             return;
+//           }
 
-        // // Bind the map's bounds (viewport) property to the autocomplete object,
-        // // so that the autocomplete requests use the current map bounds for the
-        // // bounds option in the request.
-        // // autocomplete.bindTo('bounds', map);
+//           // If the place has a geometry, then present it on a map.
+//           if (place.geometry.viewport) {
+//             map.fitBounds(place.geometry.viewport);
+//           } else {
+//             map.setCenter(place.geometry.location);
+//             map.setZoom(17);  // Why 17? Because it looks good.
+//           }
+//           marker.setPosition(place.geometry.location);
+//           marker.setVisible(true);
 
-        // var infowindow = new google.maps.InfoWindow();
-        // var infowindowContent = document.getElementById('infowindow-content');
-        // infowindow.setContent(infowindowContent);
+//           var address = '';
+//           if (place.address_components) {
+//             address = [
+//               (place.address_components[0] && place.address_components[0].short_name || ''),
+//               (place.address_components[1] && place.address_components[1].short_name || ''),
+//               (place.address_components[2] && place.address_components[2].short_name || '')
+//             ].join(' ');
+//           }
 
-        // autocomplete.addListener('place_changed', function() {
-        //   infowindow.close();
-        //   marker.setVisible(false);
-        //   var place = autocomplete.getPlace();
-        //   if (!place.geometry) {
-        //     // User entered the name of a Place that was not suggested and
-        //     // pressed the Enter key, or the Place Details request failed.
-        //     window.alert("No details available for input: '" + place.name + "'");
-        //     return;
-        //   }
+//           infowindowContent.children['place-icon'].src = place.icon;
+//           infowindowContent.children['place-name'].textContent = place.name;
+//           infowindowContent.children['place-address'].textContent = address;
+//           infowindow.open(map, marker);
+//         });
 
-        //   // If the place has a geometry, then present it on a map.
-        //   if (place.geometry.viewport) {
-        //     map.fitBounds(place.geometry.viewport);
-        //   } else {
-        //     map.setCenter(place.geometry.location);
-        //     map.setZoom(17);  // Why 17? Because it looks good.
-        //   }
-        //   marker.setPosition(place.geometry.location);
-        //   marker.setVisible(true);
+//         // Sets a listener on a radio button to change the filter type on Places
+//         // Autocomplete.
+//         function setupClickListener(id, types) {
+//           var radioButton = document.getElementById(id);
+//           radioButton.addEventListener('click', function() {
+//             autocomplete.setTypes(types);
+//           });
+//         }
 
-        //   var address = '';
-        //   if (place.address_components) {
-        //     address = [
-        //       (place.address_components[0] && place.address_components[0].short_name || ''),
-        //       (place.address_components[1] && place.address_components[1].short_name || ''),
-        //       (place.address_components[2] && place.address_components[2].short_name || '')
-        //     ].join(' ');
-        //   }
+//         setupClickListener('changetype-all', []);
+//         setupClickListener('changetype-address', ['address']);
+//         setupClickListener('changetype-establishment', ['establishment']);
+//         setupClickListener('changetype-geocode', ['geocode']);
 
-        //   infowindowContent.children['place-icon'].src = place.icon;
-        //   infowindowContent.children['place-name'].textContent = place.name;
-        //   infowindowContent.children['place-address'].textContent = address;
-        //   infowindow.open(map, marker);
-        // });
+//         document.getElementById('use-strict-bounds')
+//             .addEventListener('click', function() {
+//               console.log('Checkbox clicked! New state=' + this.checked);
+//               autocomplete.setOptions({strictBounds: this.checked});
+//             });
+//       }
+//     </script>
+//     <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap"
+//         async defer></script>
+//   </body>
+// </html>

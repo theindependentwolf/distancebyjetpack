@@ -50,3 +50,16 @@ hr{
 .mright{
   padding-right: 5px;
 }
+
+.input_boxes{
+  width:100%;
+}
+
+.display_labels{
+  color:#1521B0;
+}
+
+#distance{
+  font-weight:bold;
+  color:#667C26;
+}
