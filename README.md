@@ -4,4 +4,4 @@ You can calculate the distance it takes to go from one point on the earth to ano
 
 ### Preview:
 
-https://theindependentwolf.github.io/distancebyjetpack/
+http://distancebyjetpack.com/
