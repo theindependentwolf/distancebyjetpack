@@ -15,14 +15,15 @@ html, body {
   position: absolute;
   top:50px;
   left:10px;
-  background-color: #C0C0C0;
+  background-color: black;
   padding: 10px;
   border-radius: 15px;
-  border-color: black;d
+  border-color: black;
   border-width: 2px;
   border-style: solid;
   margin: 0 auto;
   cursor: move;
+  color:Cornsilk;
 }
 
 
@@ -56,10 +57,10 @@ hr{
 }
 
 .display_labels{
-  color:#1521B0;
+  color:DarkOrange ;
 }
 
 #distance{
   font-weight:bold;
-  color:#667C26;
+  color:gold;
 }
